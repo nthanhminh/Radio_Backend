@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="Container">
+        <form action="/createNewSong" enctype="multipart/form-data" method="post">
+            <div class="form-group ml-5 mr-5 mt-5">
+              <label for="songName">Name Of Song:</label>
+              <input type="text" class="form-control" placeholder="Enter name of song" name="songName">
+            </div>
+            <div class="form-group ml-5 mr-5">
+                <label for="authorOfSong">Author Of Song:</label>
+                <input type="text" class="form-control" placeholder="Enter author of song" name="authorOfSong">
+            </div>
+            <div class="form-group ml-5 mr-5">
+                <label for="image">image:</label>
+                <input type="file" class="form-control" placeholder="Load image" name="image" accept="image/*" required>
+            </div>
+            <div class="form-group ml-5 mr-5">
+                <label for="data">data:</label>
+                <input type="file" class="form-control" placeholder="Load data" name="data" accept=".mp3, .wav, .ogg" required>
+            </div>
+            <button type="submit" class="btn btn-primary ml-5 mr-5">Submit</button>
+          </form>
+    </div>
+</body>
+</html>
