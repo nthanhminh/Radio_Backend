@@ -3,6 +3,7 @@
 /.idea
 .idea/
 .env
+/src/uploads/
 
 # CACHE
 
