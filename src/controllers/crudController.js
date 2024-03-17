@@ -1,6 +1,7 @@
 import formidable from "formidable";
 import multer from "multer";
 import CRUDservices from "../services/CRUDservices"
+import SongServices from "../services/SongServices"
 import fs from 'fs'
 import path from 'path';
 // SET STORAGE
@@ -104,13 +105,12 @@ const getNewUser = (req, res) => {
 
 const createNewPlayListByUser = async(req, res) => {
     try {
-        const {userId} = req.query
-        const {name} = req.body
+        const {userId , name} = req.query
         console.log(userId, name)
         const imageUrl = 'zingAvatar.jpg';
         const imageData = fs.readFileSync(path.join(__dirname, '../uploads', imageUrl));
-        const mes = await CRUDservices.createNewPlayListByUser(name, imageData, userId)
-        res.send(mes)   
+        const data = await CRUDservices.createNewPlayListByUser(name, imageData, userId)
+        res.send(JSON.stringify(data));   
     } catch (error) {
         console.error('Error creating new play list by user', error)
         res.status(500).send('Internal Server Error');
@@ -172,7 +172,7 @@ const addSongFavourite = async(req, res) => {
 const addNewArtist = async(req, res) => {
     try {
         const {name} = req.body
-        const imageUrl = 'Vanh.jpg';
+        const imageUrl = 'Amee.jpg';
         const imageData = fs.readFileSync(path.join(__dirname, '../uploads', imageUrl));
         const mes = await CRUDservices.addNewArtist(name, imageData)
         res.send(mes)   
@@ -210,6 +210,16 @@ const addArtistFavorite = async (req, res) => {
     }
 }
 
+const getTop10Song = async(req, res) => {
+    try {
+        const data = await SongServices.getTop10Song()
+        res.send(JSON.stringify(data))
+    } catch (error) {
+        console.error('Error when fetching data from server:', error)
+        res.status(500).send('Internal Server Error')
+    }
+}
+
 module.exports = {
     createSong,
     createNewSong,
@@ -225,5 +235,6 @@ module.exports = {
     addSongFavourite,
     addNewArtist,
     getNewImageArtist,
-    addArtistFavorite
+    addArtistFavorite,
+    getTop10Song
 }

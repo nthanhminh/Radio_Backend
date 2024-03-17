@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      SongFavourite.belongsTo(models.Song, {foreignKey: 'songId'})
     }
   }
   SongFavourite.init({

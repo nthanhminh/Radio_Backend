@@ -36,15 +36,25 @@ const getNewSong = async(id) => {
 
 }
 
-const getTop10Song = async(id) => {
+const getTop10Song = async() => {
     return new Promise(async (resolve, reject) => {
         try {
-            const songData = await db.Song.findOne({
-                where: { id: id},
-                attributes: ['data']
+            const topSongs = await db.Song.findAll({
+                order: db.Sequelize.literal('RAND()'),
+                limit: 10,
+                attributes: ['id','name','author']
             });
-            if (songData) {
-                resolve(songData.data);
+            if (topSongs) {
+                topSongs.map((song) => {
+                    return {
+                        ...song,
+                        // imgUrl:`localhost:8090/getNewImage/${song.id}`,
+                        imgUrl:`https://433b-2405-4803-fb99-aec0-1c9e-5aad-52bb-5250.ngrok-free.app/getNewImage/${song.id}`,
+                        // musicUrl:`localhost:8090/getNewSong/${song.id}`,
+                        musicUrl:`https://433b-2405-4803-fb99-aec0-1c9e-5aad-52bb-5250.ngrok-free.app/getNewSong/${song.id}`,
+                    }
+                })
+                resolve(topSongs);
             } else {
                 resolve(null); // Trả về null nếu không tìm thấy bài hát
             }
@@ -112,7 +122,7 @@ const createNewPlayListByUser = async(name, image, userId) => {
             })
             const playlist = await db.Playlist.findOne({
                 order: [['id', 'DESC']],
-                attributes: ['id']
+                attributes: ['id','name','image']
               });
               
               let playlistId = null
@@ -131,7 +141,12 @@ const createNewPlayListByUser = async(name, image, userId) => {
                 userId: userId,
             })
 
-            resolve('Successfully create new playlist by id')
+            const data = {
+                id: playlist.id,
+                name: playlist.name,
+                imgUrl: `${process.env.BASE_URL}/getPlayListImage/${playlist.id}`
+            }
+            resolve(data)
 
         } catch (error) {
             reject(error);
@@ -216,7 +231,6 @@ const getNewImageArtist = async(id) => {
             reject(error);
         }
     });
-
 }
 
 const addArtistFavorite = async(artistId, userId) => {
@@ -245,5 +259,6 @@ module.exports = {
     addSongFavourite,
     addNewArtist,
     getNewImageArtist,
-    addArtistFavorite
+    addArtistFavorite,
+    getTop10Song
 }

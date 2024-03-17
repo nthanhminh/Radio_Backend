@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Playlist.hasMany(models.PlaylistFavourite,{ foreignKey: 'playlistId'})
+      Playlist.hasMany(models.PlaylistCreated,{ foreignKey: 'playlistId'})
     }
   }
   Playlist.init({
