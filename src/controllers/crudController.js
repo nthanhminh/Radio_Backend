@@ -20,7 +20,7 @@ let createSong = (req,res) => {
     res.render('createSong.ejs')
 }
 
-let createNewSong = async (req,res,next) => {
+let createNewSong = async (req,res) => {
     console.log(req.body, "body check")
     const name = req.body["songName"]
     const author = req.body["authorOfSong"]
@@ -38,9 +38,7 @@ let getNewSong = async (req,res) => {
     try {
         const songData = await CRUDservices.getNewSong(req.params.id);
         if (songData) {
-            // Thiết lập header để trình duyệt biết loại dữ liệu của file
-            res.setHeader('Content-Type', 'audio/mpeg'); // Định dạng của file MP3
-            // Gửi nội dung của file như phản hồi
+            res.setHeader('Content-Type', 'audio/mpeg');
             res.send(songData);
         } else {
             res.status(404).send('File not found');
@@ -56,9 +54,7 @@ let getNewImage = async (req,res) => {
     try {
         const songData = await CRUDservices.getNewImage(req.params.id);
         if (songData) {
-            // Thiết lập header để trình duyệt biết loại dữ liệu của file
-            res.setHeader('Content-Type', 'image/jpeg'); // Định dạng của file MP3
-            // Gửi nội dung của file như phản hồi
+            res.setHeader('Content-Type', 'image/jpeg'); 
             res.send(songData);
         } else {
             res.status(404).send('File not found');
