@@ -10,7 +10,7 @@ The **RADIO Backend** serves as the backend service for a music play web applica
 ## Tech Stack
 
 - **Language**: JavaScript
-- **Libraries**: Express js, Sequelize, Jwt
+- **Libraries**: Express js, Sequelize
 - **Database**: MySQL
 - **Design Pattern**: ER Diagram
 - **Source Version Control**: Git
